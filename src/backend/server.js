@@ -16,21 +16,21 @@ connectToMongo();
 app.listen(5000, () => {
   console.log("server started");
 });
-  
+
 
 
 // Login API
 app.post("/auth", async (req, res) => {
   const Username = req.body.username;
   const Password = req.body.password;
-  const admindb = await Admindb.find({ $and: [{ username: Username }, { password: Password }] });
+  const admindb = await Admindb.findOne({ username: Username, password: Password });
   console.log(admindb);
-  if (admindb.username !== "" && admindb.password !== "") {
-    res.json({ status: true })
-    console.log("Done");
+  if (admindb) {
+    res.json({ status: true, username: admindb.username })
+    console.log("Admin login successfully.");
   } else {
     res.json({ status: false })
-    console.log("Wrong");
+    console.log("Something went wrong!.");
   }
 });
 
@@ -52,7 +52,7 @@ app.post("/test", async (req, res) => {
   console.log(data);
   if (data.fname !== "" && data.email !== "") {
     res.json({ status: true })
-    console.log("Employee added");
+    console.log("Employee added successfully.");
   } else {
     res.json({ status: false })
     console.log("Something went wrong!.");
@@ -62,35 +62,35 @@ app.post("/test", async (req, res) => {
 app.get("/getUser", async (req, res) => {
   User.find()
     .then(user => res.json(user))
-    .catch(err => res.json("Backend has some problem", err))
+    .catch(err => res.json("Backend has some problem!.", err))
 });
 
 // Update Employee API
 app.post("/update", async (req, res) => {
   const contact = req.body.contact;
-  const user = await User.findOne({  contact: contact });
-  if(user !== null) {
+  const user = await User.findOne({ contact: contact });
+  if (user !== null) {
     const data = await user.updateOne({
       hireDate: req.body.hireDate,
-      salary:  req.body.salary,
+      salary: req.body.salary,
       deptName: req.body.deptName,
       manager: req.body.manager
     });
     console.log(data);
-    if(data !== null){
+    if (data !== null) {
       res.json({ status: true });
     } else {
-      res.json({ status: false, reason: "Something went wrong"})
+      res.json({ status: false, reason: "Something went wrong!." })
     }
   } else {
-    res.json({ status: false, reason: "Employee does not exist" })
+    res.json({ status: false, reason: "Employee does not exist!." })
   }
 });
 
 app.get("/getUser", async (req, res) => {
   User.updateOne()
     .then(user => res.json(user))
-    .catch(err => res.json("Backend has some problem", err))
+    .catch(err => res.json("Backend has some problem!.", err))
 });
 
 // Delete Employee API
@@ -99,9 +99,9 @@ app.post("/delete", async (req, res) => {
   const user = await User.findOne({ fname: fname });
   const data = await user.deleteOne();
   if (data.fname !== "") {
-    res.json({ status: true, data: "Employee Deleted" });
+    res.json({ status: true, data: "Employee deleted successfully." });
   } else {
-    res.json({ status: false, reason: "No such employee found!" });
+    res.json({ status: false, reason: "No such employee found!." });
   }
 });
 
@@ -119,7 +119,7 @@ app.get("/search", async (req, res) => {
 
     res.status(200).json(searchResults);
   } catch (error) {
-    res.status(500).json({ error: "An error occurred while searching." });
+    res.status(500).json({ error: "An error occurred while searching!." });
   }
 });
 
@@ -133,7 +133,7 @@ app.post("/dmname", async (req, res) => {
   console.log(data);
   if (data.dname !== "") {
     res.json({ status: true })
-    console.log("Department added");
+    console.log("Department added successfully.");
   } else {
     res.json({ status: false })
     console.log("Something went wrong!.");
@@ -156,13 +156,13 @@ app.post("/dmname", async (req, res) => {
 //   const dname = req.body.dname;
 //   try {
 //       const dept = await Dept.findOne({ dname: dname });
-      
+
 //       if (!dept) {
 //           return res.json({ status: false, reason: "No such Department found!" });
 //       }
-  
+
 //       const data = await dept.deleteOne();
-      
+
 //       if (data.deletedCount !== 0) {
 //           res.json({ status: true, data: "Department Deleted" });
 //       } else {
@@ -179,7 +179,7 @@ app.post("/dmname", async (req, res) => {
 app.get("/getDept", async (req, res) => {
   Dept.find()
     .then(dept => res.json(dept))
-    .catch(err => res.json("Backend has some problem", err))
+    .catch(err => res.json("Backend has some problem!.", err))
 });
 
 
@@ -188,7 +188,7 @@ app.get("/getDept", async (req, res) => {
 // app.post("/deleteAll", async (req, res) => {
 //   try {
 //       await Dept.deleteMany(); // Delete all documents from the "Dept" collection
-      
+
 //       res.json({ status: true, data: "All departments deleted successfully." });
 //   } catch (error) {
 //       console.error("Error deleting all departments:", error);
@@ -203,7 +203,7 @@ app.get("/getTotalEmployees", async (req, res) => {
     const totalEmployees = await User.countDocuments();
     res.json({ totalEmployees });
   } catch (error) {
-    res.status(500).json({ error: "An error occurred while fetching total employees." });
+    res.status(500).json({ error: "An error occurred while fetching total employees!." });
   }
 });
 
@@ -213,7 +213,7 @@ app.get("/getTotalSalary", async (req, res) => {
     const totalSalary = await User.aggregate([{ $group: { _id: null, total: { $sum: "$salary" } } }]);
     res.json({ totalSalary: totalSalary[0]?.total || 0 });
   } catch (error) {
-    res.status(500).json({ error: "An error occurred while fetching total salary." });
+    res.status(500).json({ error: "An error occurred while fetching total salary!." });
   }
 });
 
@@ -226,6 +226,6 @@ app.get("/getTotalAnnualSalary", async (req, res) => {
     ]);
     res.json({ totalAnnualSalary: totalAnnualSalary[0]?.total || 0 });
   } catch (error) {
-    res.status(500).json({ error: "An error occurred while fetching total annual salary." });
+    res.status(500).json({ error: "An error occurred while fetching total annual salary!." });
   }
 });

@@ -15,7 +15,7 @@ const Login = ({ session, setSession }) => {
       ...Form,
       [e.target.name]: e.target.value,
     });
-    console.log(Form);
+    // console.log(Form);
   };
 
   const handleSubmit = async (e) => {
@@ -38,11 +38,12 @@ const Login = ({ session, setSession }) => {
     });
 
     const data = await response.json();
+    console.log("Data coming from api: " + data);
 
     if (data.status === true) {
       Swal.fire({
         icon: 'success',
-        title: `Welcome back ${Form.username}`,
+        title: `Welcome back ${data.username}`,
         text: 'Now do your work.'
       }).then(() => {
         setSession(1);
