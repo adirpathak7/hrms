@@ -1,0 +1,35 @@
+body{
+     background-color:whitesmoke;
+     height: 100vh;
+     /* overflow: hidden; */
+}
+.login{
+    /* background-color: aquamarine; */
+    height: 100vh;
+}
+.card{
+    box-shadow: 15px 25px 30px  rgba(128, 127, 127, 0.4);
+}
+#btn1{
+    background-color: #f3355b;
+}
+
+#btn2{
+    background-color: #f3355b;
+}
+
+#fdiv{
+    /* margin-top: 8%; */
+}
+
+header {
+    position: fixed;
+    top: 0;
+    padding: 30px;
+    width: 100%;
+
+}
+
+.example::-webkit-scrollbar {
+    display: none;
+}

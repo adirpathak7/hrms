@@ -1,0 +1,19 @@
+#arrowsvg{
+    height: 4%;
+    width: 4%;
+}
+
+ul .main:hover {
+    background-color: rgba(255, 255, 255);
+    border-radius: 14px;
+    transition: 0.8s;
+    color: #fff;
+}
+
+#nav1 {
+    height: fit-content;
+}
+
+body {
+    background-color: #eee;
+}

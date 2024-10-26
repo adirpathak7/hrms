@@ -1,0 +1,34 @@
+#firstSection{
+    margin-top: 20px;
+      background-color: rgba(44, 43, 43, 0.25);
+}
+#firstheader::before{
+    background: url('../../images/group-people-working-out-business-plan-office.jpg') no-repeat center center/cover;
+    content: "";
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 50%;
+    z-index:-1;
+    opacity: 0.3;
+ 
+    
+}
+div.scroll-container {
+
+    overflow: auto;
+    white-space: nowrap;
+    /* background-color: #484a50; */
+  }
+  
+  div.scroll-container img {
+    padding: 10px;
+}
+
+/* h1{
+    font-size: 75px;
+    font-weight: 900;
+    color: rgb(109, 109, 225);
+    /* -webkit-text-stroke: 4px #000; */
+    /* color: transparent; */

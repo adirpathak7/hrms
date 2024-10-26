@@ -1,0 +1,49 @@
+.card{
+ 
+  overflow: hidden;
+ }
+ .card img{
+ width:110%;
+ height: 100%;
+ transition: scale 400ms;
+ }
+ .card:hover img{
+     scale: 110%;
+ }
+ main{
+     background-image: url('../../images/dashboardbg.jpg') no-repeat center center/cover;
+     width:100vw;
+     height: 100vw;
+ }
+ 
+ @keyframes fadeInAnimation {
+   0% {
+       opacity: 0;
+   }
+   100% {
+       opacity: 1;
+    }
+ }
+   .main1 {
+     animation:fadeInAnimation  1.5s;
+   }
+   .parallax {
+     /* The image used */
+     background-image: url("../../images/dashboardbg.jpg");
+   
+     /* Set a specific height */
+     min-height: 500px; 
+   
+     /* Create the parallax scrolling effect */
+     background-attachment: fixed;
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+   }
+ .decoration{
+  text-decoration: none;
+ }
+ ul li{
+  margin-left: 15px;
+  margin-right: 15px;
+ }
